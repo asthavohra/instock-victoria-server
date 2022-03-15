@@ -5,6 +5,7 @@ const router = express.Router();
 const { v4: uuidv4 } = require("uuid");
 
 const filesystem = require("fs");
+const req = require("express/lib/request");
 
 const warehousesFile = filesystem.readFileSync("./data/warehouses.json");
 
@@ -96,5 +97,33 @@ router.get("/warehouses/:warehouseId/inventory", (req, res) => {
     res.status(400).send(`There is no inventory under the ${warehouseId}`);
   }
   res.status(200).send(data);
+});
+
+router.post("/", (request, response) => {
+  const newWareHouseInfo = {
+    id: uuidv4(),
+    name: request.body.name,
+    city: request.body.city,
+    country: request.body.country,
+    contact: {
+      name: request.body.contact.name,
+      position: request.body.contact.position,
+      phone: request.body.contact.phone,
+      email: request.body.contact.email,
+    },
+  };
+  warehousesData.push(newWareHouseInfo);
+  filesystem.writeFile(
+    "./data/warehouses.json",
+    JSON.stringify(warehousesData),
+    (error) => {
+      if (error) {
+        response
+          .status(500)
+          .send({ error: "Unable to post new warehouse data" });
+      }
+      response.status(200).send(newWareHouseInfo);
+    }
+  );
 });
 module.exports = router;

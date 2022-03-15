@@ -6,7 +6,8 @@ const cors = require("cors");
 
 const app = express();
 const port = 8080;
-
+//parsing request body for post request
+app.use(express.json());
 //created basic route
 /*
 app.use("/", (resquest, response) => {
