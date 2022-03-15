@@ -11,11 +11,10 @@ app.use(express.json());
 app.use(cors());
 
 //created basic route
-/*
-app.use("/", (resquest, response) => {
-  response.send("Hello Victoria Group");
-});
-*/
+
+// app.use("/", (resquest, response) => {
+//   response.send("Hello Victoria Group");
+// });
 
 app.use("/warehouse", warehouseRouter);
 app.use("/inventory", inventoryRouter);
