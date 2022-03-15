@@ -708,5 +708,15 @@
     "category": "test",
     "status": "Out of Stock",
     "quantity": 0
+  },
+  {
+    "id": "1d6446f6-5c60-46df-b09b-703daf8af764",
+    "warehouseID": "bb1491eb-30e6-1111-a5fa-72f89feaf622",
+    "warehouseName": "test patch",
+    "itemName": "test",
+    "description": "test",
+    "category": "test",
+    "status": "Out of Stock",
+    "quantity": 5
   }
 ]

@@ -48,11 +48,31 @@ router
         );
     }
   })
-  .put("/:id", (req, res) => {
-    //write your code here
-  })
   .patch("/:id", (req, res) => {
-    //write your code here
+    const inventoriesFile = JSON.parse(
+      fs.readFileSync("./data/inventories.json")
+    );
+    const selectedItem = inventoriesFile.find(
+      (item) => item.id == req.params.id
+    );
+
+    if (selectedItem) {
+      selectedItem.warehouseName =
+        req.body.warehouseName || selectedItem.warehouseName;
+      selectedItem.itemName = req.body.itemName || selectedItem.itemName;
+      selectedItem.description =
+        req.body.description || selectedItem.description;
+      selectedItem.category = req.body.category || selectedItem.category;
+      selectedItem.status = req.body.status || selectedItem.status;
+      selectedItem.quantity = req.body.quantity || selectedItem.quantity;
+      fs.writeFileSync(
+        "./data/inventories.json",
+        JSON.stringify(inventoriesFile)
+      );
+      res.status(201).json(selectedItem);
+    } else {
+      res.status(400).send("Item does not exist");
+    }
   })
   .delete("/:id", (req, res) => {
     //write your code here
