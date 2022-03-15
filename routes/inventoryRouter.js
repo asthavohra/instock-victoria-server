@@ -31,18 +31,16 @@ router
         status: req.body.status,
         quantity: req.body.quantity,
       };
+      const inventoriesFile = JSON.parse(
+        fs.readFileSync("./data/inventories.json")
+      );
+      inventoriesFile.push(newItem);
+      fs.writeFileSync(
+        "./data/inventories.json",
+        JSON.stringify(inventoriesFile)
+      );
       res.status(201).json(newItem);
     } else {
-      const template = {
-        warehouseID: "req.body.warehouseID",
-        warehouseName: "req.body.warehouseName",
-        itemName: "req.body.itemName",
-        description: "req.body.description",
-        category: "req.body.category",
-        status: "req.body.status",
-        quantity: "req.body.quantity",
-      };
-
       res
         .status(400)
         .json(
