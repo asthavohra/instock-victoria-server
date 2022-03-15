@@ -86,4 +86,15 @@ router.get("/warehouses/:warehouseId", (req, res) => {
   res.status(200).send(warehouseInfo);
 });
 
+//get inventory for one warehouse
+router.get("/warehouses/:warehouseId/inventory", (req, res) => {
+  let { warehouseId } = req.params;
+  const data = inventoriesData.filter(
+    (inventory) => inventory.warehouseID === warehouseId
+  );
+  if (!data) {
+    res.status(400).send(`There is no inventory under the ${warehouseId}`);
+  }
+  res.status(200).send(data);
+});
 module.exports = router;
