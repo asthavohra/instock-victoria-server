@@ -74,4 +74,27 @@ router.get("/", (request, response) => {
   response.status(200).send(warehousesData);
 });
 
+//get one warehouse by id
+router.get("/warehouses/:warehouseId", (req, res) => {
+  let { warehouseId } = req.params;
+  const warehouseInfo = warehousesData.find(
+    (warehouse) => warehouse.id === warehouseId
+  );
+  if (!warehouseInfo) {
+    res.status(400).send(`There is no warehouse with id of ${warehouseId}`);
+  }
+  res.status(200).send(warehouseInfo);
+});
+
+//get inventory for one warehouse
+router.get("/warehouses/:warehouseId/inventory", (req, res) => {
+  let { warehouseId } = req.params;
+  const data = inventoriesData.filter(
+    (inventory) => inventory.warehouseID === warehouseId
+  );
+  if (!data) {
+    res.status(400).send(`There is no inventory under the ${warehouseId}`);
+  }
+  res.status(200).send(data);
+});
 module.exports = router;
