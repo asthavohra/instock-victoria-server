@@ -2,6 +2,7 @@
 //imported express to start the server
 const express = require("express");
 const warehouseRouter = require("./routes/warehouses");
+const inventoryRouter = require("./routes/inventoryRouter");
 const cors = require("cors");
 
 const app = express();
@@ -15,6 +16,7 @@ app.use("/", (resquest, response) => {
 */
 app.use(cors());
 app.use("/warehouse", warehouseRouter);
+app.use("/inventory", inventoryRouter);
 
 app.listen(port, () => {
   console.log(`App is listening on port ${port}`);
