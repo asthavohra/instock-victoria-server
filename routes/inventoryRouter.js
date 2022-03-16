@@ -90,18 +90,21 @@ router
       res.status(400).send("Item does not exist");
     }
   })
+
   .delete("/:id", (req, res) => {
-    //write your code here
+    const inventoriesFile = JSON.parse(
+      fs.readFileSync("./data/inventories.json")
+    );
+    const deletedItem = inventoriesFile.find(
+      (item) => item.id == req.params.id
+    );
+
+    if (deletedItem) {
+      res.status(201).json(deletedItem);
+    } else {
+      console.log(deletedItem);
+      res.status(400).send("Item you are looking for does not exist");
+    }
   });
-
-router.delete("/:id", (req, res) => {
-  const id = req.params.id;
-
-  inventory = inventoriesFile.filter(
-    (inventory) => inventoriesFile.id !== inventoriesFile.id
-  );
-
-  res.send(`Inventory with the id ${id} deleted from database.`);
-});
 
 module.exports = router;
