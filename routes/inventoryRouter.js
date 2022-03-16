@@ -1,16 +1,32 @@
 const express = require("express");
 const router = express.Router();
 const fs = require("fs");
+const { uuid } = require("uuidv4");
+const { response } = require("express");
+const inventoriesFile = fs.readFileSync("./data/inventories.json");
+const inventoriesData = JSON.parse(inventoriesFile);
 const { v4: uuidv4 } = require("uuid");
 
+// GET List of all Inventory Items
 router
   .get("/", (req, res) => {
-    //write your code here
-    res.status(200).json("newVideo");
+    res.status(200).send(inventoriesData);
   })
   .get("/:id", (req, res) => {
-    //write your code here
+    const inventoriesFile = JSON.parse(
+      fs.readFileSync("./data/inventories.json")
+    );
+    const selectedItem = inventoriesFile.find(
+      (item) => item.id == req.params.id
+    );
+
+    if (selectedItem) {
+      res.status(201).json(selectedItem);
+    } else {
+      res.status(400).send("Item does not exist");
+    }
   })
+
   .post("/", (req, res) => {
     if (
       !!req.body.warehouseID &&
@@ -77,5 +93,15 @@ router
   .delete("/:id", (req, res) => {
     //write your code here
   });
+
+router.delete("/:id", (req, res) => {
+  const id = req.params.id;
+
+  inventory = inventoriesFile.filter(
+    (inventory) => inventoriesFile.id !== inventoriesFile.id
+  );
+
+  res.send(`Inventory with the id ${id} deleted from database.`);
+});
 
 module.exports = router;
