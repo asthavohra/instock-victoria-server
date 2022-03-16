@@ -102,5 +102,109 @@
       "phone": "+1 (646) 123-1234",
       "email": "vmendoza@instock.com"
     }
+  },
+  {
+    "id": "5bc9d80a-5479-4d3e-a1da-4332e1232e97",
+    "name": "BangaloreInc",
+    "city": "Bangalore",
+    "country": "India",
+    "contact": {
+      "name": "Zoe",
+      "position": "CEO",
+      "phone": "123456",
+      "email": "zoe@pooch.com"
+    }
+  },
+  {
+    "id": "012a9e0a-58f8-49c0-b94d-df55b1d8fdc1",
+    "name": "BangaloreInc",
+    "city": "Bangalore",
+    "country": "India",
+    "contact": {
+      "name": "Zoe",
+      "position": "CEO",
+      "phone": "123456",
+      "email": "zoe@pooch.com"
+    }
+  },
+  {
+    "id": "81b7b837-7546-472e-9607-faf3bf811e2e",
+    "city": "Bangalore",
+    "country": "India",
+    "contact": {
+      "name": "Zoe",
+      "position": "CEO",
+      "phone": "123456",
+      "email": "zoe@pooch.com"
+    }
+  },
+  {
+    "id": "7a611eb1-0b31-46c1-b977-7dda9f8ebcfe",
+    "city": "Bangalore",
+    "country": "India",
+    "contact": {
+      "name": "Zoe",
+      "position": "CEO",
+      "phone": "123456",
+      "email": "zoe@pooch.com"
+    }
+  },
+  {
+    "id": "e61946a9-5445-4fda-b54d-06bccf4f0a22",
+    "city": "Bangalore",
+    "country": "India",
+    "contact": {
+      "name": "Zoe",
+      "position": "CEO",
+      "phone": "123456",
+      "email": "zoe@pooch.com"
+    }
+  },
+  {
+    "id": "487e89b5-f248-4cc2-8685-2f7b15580d79",
+    "city": "Bangalore",
+    "country": "India",
+    "contact": {
+      "name": "Zoe",
+      "position": "CEO",
+      "phone": "123456",
+      "email": "zoe@pooch.com"
+    }
+  },
+  {
+    "id": "37b8ffd8-528d-401e-a7b9-6af6bc92f39b",
+    "name": "BangaloreInc",
+    "city": "12",
+    "country": "India",
+    "contact": {
+      "name": "Zoe",
+      "position": "CEO",
+      "phone": "123456",
+      "email": "paujla@instock.com"
+    }
+  },
+  {
+    "id": "cf3ce412-ca76-47d8-aaf3-4b6e5d475c2f",
+    "name": "BangaloreInc",
+    "city": "Bangalore",
+    "country": "India",
+    "contact": {
+      "name": "Zoe",
+      "position": "CEO",
+      "phone": "123456",
+      "email": "paujla@instock.com"
+    }
+  },
+  {
+    "id": "2c219a02-dd74-4be5-b691-b94c7941cfdd",
+    "name": "BangaloreInc",
+    "city": "Bangalore",
+    "country": "India",
+    "contact": {
+      "name": "Zoe",
+      "position": "CEO",
+      "phone": "9986531749",
+      "email": "zoe@dog.com"
+    }
   }
 ]
