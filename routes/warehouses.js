@@ -6,13 +6,13 @@ const { v4: uuidv4 } = require("uuid");
 
 const filesystem = require("fs");
 
-const warehousesFile = filesystem.readFileSync("./data/warehouses.json");
+let warehousesFile = filesystem.readFileSync("./data/warehouses.json");
 
-const inventoriesFile = filesystem.readFileSync("./data/inventories.json");
+let inventoriesFile = filesystem.readFileSync("./data/inventories.json");
 
-const warehousesData = JSON.parse(warehousesFile);
+let warehousesData = JSON.parse(warehousesFile);
 
-const inventoriesData = JSON.parse(inventoriesFile);
+let inventoriesData = JSON.parse(inventoriesFile);
 
 /* flat data for warehouse list
 router.get("/", (request, response) => {
@@ -73,5 +73,48 @@ router.get("/:id", (request, response) => {
 router.get("/", (request, response) => {
   response.status(200).send(warehousesData);
 });
+
+//delete from warehouse
+router.delete("/:id", (req, res) => {
+  const { id } = req.params;
+  const deleted = warehousesData.find((warehouse) => warehouse.id === id);
+  if (deleted) {
+    warehousesData = warehousesData.filter((warehouse) => warehouse.id !== id);
+    res.status(200).json(deleted);
+  } else {
+    res.status(404).json({
+      message: "The warehouse you are trying to delete doesn't exist",
+    });
+  }
+
+  if (warehouseID === id) {
+    inventoriesData = inventoriesData.filter(
+      (inventory) => inventory.warehouseID !== id
+    );
+    res.status(200).json({ message: "matriculation" });
+  } else {
+    res.status(404).json({
+      message: "we're dun out ere",
+    });
+  }
+});
+
+//delete inventory for selected warehouse wip
+// router.delete("/:warehouseID", (req, res) => {
+//   const { id } = req.path;
+//   const deletedinventory = inventoriesData.find(
+//     (inventory) => inventory.warehouseID === id
+//   );
+//   if (deletedinventory) {
+//     inventoriesData = inventoriesData.filter(
+//       (inventory) => inventory.warehouseID !== id
+//     );
+//     res.status(200).json(deletedinventory);
+//   } else {
+//     res.status(404).json({
+//       message: "The warehouse flvdfvjdfdfjvndfkjn",
+//     });
+//   }
+// });
 
 module.exports = router;
