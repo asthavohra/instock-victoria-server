@@ -1,20 +1,20 @@
-let express = require("express");
+const express = require("express");
 
-let router = express.Router();
+const router = express.Router();
 
-let { v4: uuidv4 } = require("uuid");
+const { v4: uuidv4 } = require("uuid");
 
-let filesystem = require("fs");
+const filesystem = require("fs");
 
-let { body, validationResult, check } = require("express-validator");
+const { body, validationResult, check } = require("express-validator");
 
-let warehousesFile = filesystem.readFileSync("./data/warehouses.json");
+const warehousesFile = filesystem.readFileSync("./data/warehouses.json");
 
-let inventoriesFile = filesystem.readFileSync("./data/inventories.json");
+const inventoriesFile = filesystem.readFileSync("./data/inventories.json");
 
-let warehousesData = JSON.parse(warehousesFile);
+const warehousesData = JSON.parse(warehousesFile);
 
-let inventoriesData = JSON.parse(inventoriesFile);
+const inventoriesData = JSON.parse(inventoriesFile);
 
 /* flat data for warehouse list
 router.get("/", (request, response) => {
