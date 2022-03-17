@@ -181,27 +181,7 @@ router.delete("/:id", (req, res) => {
   }
 });
 
-// if ((res.status(200).json(deleted))=true) {
-//delete from inventory
-// router.delete("/:id/inventory", (req, res) => {
-//   let { id } = req.params;
-//   let deletedinventory = inventoriesData.find(
-//     (inventory) => inventory.warehouseID === id
-//   );
-//   if (deletedinventory) {
-//     inventoriesData = inventoriesData.filter(
-//       (inventory) => inventory.id !== id
-//     );
-//     res.status(200).send(deletedinventory);
-//   }
-//   res.status(404).json({
-//     message: "The warehouse inventory you are trying to delete doesn't exist",
-//   });
-// });
-// } else {
-//   console.log("Individual inventory items cannot be deleted from warehouse");
-// }
-
+//delete from all warehouse items from inventory
 router.delete("/:id/inventory", (req, res) => {
   let deletedinventory = inventoriesData.filter(
     (inventory) => inventory.warehouseID == req.params.id
@@ -223,19 +203,5 @@ router.delete("/:id/inventory", (req, res) => {
     });
   }
 });
-
-// warehousesData.splice(index, 1);
-// filesystem.writeFileSync(
-//   "./data/warehouses.json",
-//   JSON.stringify(warehousesData)
-// );
-// if (deleted) {
-//   res.status(200).json(deletedinventory);
-// } else {
-//   res.status(404).json({
-//     message: "The warehouse inventory you are trying to delete doesn't exist",
-//   });
-// }
-// });
 
 module.exports = router;
