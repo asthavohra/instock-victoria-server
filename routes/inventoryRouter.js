@@ -101,6 +101,7 @@ router
 
     if (deletedItem) {
       res.status(201).json(deletedItem);
+      //
     } else {
       console.log(deletedItem);
       res.status(400).send("Item you are looking for does not exist");
