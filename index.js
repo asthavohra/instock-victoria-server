@@ -1,9 +1,9 @@
 //index.js is the entry point
 //imported express to start the server
-const express = require("express");
-const warehouseRouter = require("./routes/warehouses");
-const inventoryRouter = require("./routes/inventoryRouter");
-const cors = require("cors");
+let express = require("express");
+let warehouseRouter = require("./routes/warehouses");
+let inventoryRouter = require("./routes/inventoryRouter");
+let cors = require("cors");
 
 const app = express();
 const port = 8080;

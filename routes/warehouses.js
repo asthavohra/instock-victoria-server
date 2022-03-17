@@ -1,20 +1,20 @@
-const express = require("express");
+let express = require("express");
 
-const router = express.Router();
+let router = express.Router();
 
-const { v4: uuidv4 } = require("uuid");
+let { v4: uuidv4 } = require("uuid");
 
-const filesystem = require("fs");
+let filesystem = require("fs");
 
-const { body, validationResult, check } = require("express-validator");
+let { body, validationResult, check } = require("express-validator");
 
-const warehousesFile = filesystem.readFileSync("./data/warehouses.json");
+let warehousesFile = filesystem.readFileSync("./data/warehouses.json");
 
-const inventoriesFile = filesystem.readFileSync("./data/inventories.json");
+let inventoriesFile = filesystem.readFileSync("./data/inventories.json");
 
-const warehousesData = JSON.parse(warehousesFile);
+let warehousesData = JSON.parse(warehousesFile);
 
-const inventoriesData = JSON.parse(inventoriesFile);
+let inventoriesData = JSON.parse(inventoriesFile);
 
 /* flat data for warehouse list
 router.get("/", (request, response) => {
@@ -79,7 +79,7 @@ router.get("/", (request, response) => {
 //get one warehouse by id
 router.get("/:id", (req, res) => {
   let { id } = req.params;
-  const warehouseInfo = warehousesData.find((warehouse) => warehouse.id === id);
+  let warehouseInfo = warehousesData.find((warehouse) => warehouse.id === id);
   if (!warehouseInfo) {
     res.status(400).send(`There is no warehouse with id of ${id}`);
   }
@@ -89,7 +89,7 @@ router.get("/:id", (req, res) => {
 //get inventory for one warehouse
 router.get("/:id/inventory", (req, res) => {
   let { id } = req.params;
-  const data = inventoriesData.filter(
+  let data = inventoriesData.filter(
     (inventory) => inventory.warehouseID === id
   );
   if (!data) {
@@ -143,4 +143,99 @@ router.post(
     );
   }
 );
+
+//put request to warehouse
+router.put("/:id"),
+  (req, res) => {
+    const { id } = req.params;
+    const changes = req.body;
+    const index = warehousesData.findIndex((warehouse) => warehouse.id === id);
+    if (index !== -1) {
+      warehousesData[index] = changes;
+      res.status(200).json(warehousesData[index]);
+    } else {
+      res.status(404).json({
+        message: "Cannot change warehouse",
+      });
+    }
+  };
+
+//delete from warehouse
+router.delete("/:id", (req, res) => {
+  let deleted = warehousesData.find(
+    (warehouse) => warehouse.id == req.params.id
+  );
+  const index = warehousesData.indexOf(deleted);
+  console.log(index);
+  warehousesData.splice(index, 1);
+  filesystem.writeFileSync(
+    "./data/warehouses.json",
+    JSON.stringify(warehousesData)
+  );
+  if (deleted) {
+    res.status(200).json(deleted);
+  } else {
+    res.status(404).json({
+      message: "The warehouse you are trying to delete doesn't exist",
+    });
+  }
+});
+
+// if ((res.status(200).json(deleted))=true) {
+//delete from inventory
+// router.delete("/:id/inventory", (req, res) => {
+//   let { id } = req.params;
+//   let deletedinventory = inventoriesData.find(
+//     (inventory) => inventory.warehouseID === id
+//   );
+//   if (deletedinventory) {
+//     inventoriesData = inventoriesData.filter(
+//       (inventory) => inventory.id !== id
+//     );
+//     res.status(200).send(deletedinventory);
+//   }
+//   res.status(404).json({
+//     message: "The warehouse inventory you are trying to delete doesn't exist",
+//   });
+// });
+// } else {
+//   console.log("Individual inventory items cannot be deleted from warehouse");
+// }
+
+router.delete("/:id/inventory", (req, res) => {
+  let deletedinventory = inventoriesData.filter(
+    (inventory) => inventory.warehouseID == req.params.id
+  );
+  deletedinventory.map((inventoryObj) => {
+    const deleteObj = inventoriesData.indexOf(inventoryObj);
+    inventoriesData.splice(deleteObj, 1);
+
+    filesystem.writeFileSync(
+      "./data/inventories.json",
+      JSON.stringify(inventoriesData)
+    );
+  });
+  if (deletedinventory.length !== 0) {
+    res.status(200).json(deletedinventory);
+  } else {
+    res.status(404).json({
+      message: "The warehouse inventory you are trying to delete doesn't exist",
+    });
+  }
+});
+
+// warehousesData.splice(index, 1);
+// filesystem.writeFileSync(
+//   "./data/warehouses.json",
+//   JSON.stringify(warehousesData)
+// );
+// if (deleted) {
+//   res.status(200).json(deletedinventory);
+// } else {
+//   res.status(404).json({
+//     message: "The warehouse inventory you are trying to delete doesn't exist",
+//   });
+// }
+// });
+
 module.exports = router;
