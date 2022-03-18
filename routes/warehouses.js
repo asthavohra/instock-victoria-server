@@ -144,21 +144,31 @@ router.post(
   }
 );
 
-//put request to warehouse
-router.put("/:id"),
-  (req, res) => {
-    const { id } = req.params;
-    const changes = req.body;
-    const index = warehousesData.findIndex((warehouse) => warehouse.id === id);
-    if (index !== -1) {
-      warehousesData[index] = changes;
-      res.status(200).json(warehousesData[index]);
-    } else {
-      res.status(404).json({
-        message: "Cannot change warehouse",
-      });
-    }
-  };
+//patch request to warehouse
+router.patch("/:id", (req, res) => {
+  let selectedItem = warehousesData.find((item) => item.id == req.params.id);
+  if (selectedItem) {
+    selectedItem.name = req.body.name || selectedItem.name;
+    selectedItem.address = req.body.address || selectedItem.address;
+    selectedItem.city = req.body.city || selectedItem.city;
+    selectedItem.country = req.body.country || selectedItem.country;
+    selectedItem.contact.name =
+      req.body.contact.name || selectedItem.contact.name;
+    selectedItem.contact.position =
+      req.body.contact.position || selectedItem.contact.position;
+    selectedItem.contact.phone =
+      req.body.contact.phone || selectedItem.contact.phone;
+    selectedItem.contact.email =
+      req.body.contact.email || selectedItem.contact.email;
+    filesystem.writeFileSync(
+      "./data/warehouses.json",
+      JSON.stringify(warehousesData)
+    );
+    res.status(201).json(selectedItem);
+  } else {
+    res.status(400).send("Warehouse does not exist");
+  }
+});
 
 //delete from warehouse
 router.delete("/:id", (req, res) => {
