@@ -152,14 +152,22 @@ router.patch("/:id", (req, res) => {
     selectedItem.address = req.body.address || selectedItem.address;
     selectedItem.city = req.body.city || selectedItem.city;
     selectedItem.country = req.body.country || selectedItem.country;
-    selectedItem.contact.name =
-      req.body.contact.name || selectedItem.contact.name;
-    selectedItem.contact.position =
-      req.body.contact.position || selectedItem.contact.position;
-    selectedItem.contact.phone =
-      req.body.contact.phone || selectedItem.contact.phone;
-    selectedItem.contact.email =
-      req.body.contact.email || selectedItem.contact.email;
+
+    if (req.body.contact === undefined || req.body.contact === null) {
+      selectedItem.contact.name;
+      selectedItem.contact.position;
+      selectedItem.contact.phone;
+      selectedItem.contact.phone;
+    } else {
+      selectedItem.contact.name =
+        req.body.contact.name || selectedItem.contact.name;
+      selectedItem.contact.position =
+        req.body.contact.position || selectedItem.contact.position;
+      selectedItem.contact.phone =
+        req.body.contact.phone || selectedItem.contact.phone;
+      selectedItem.contact.email =
+        req.body.contact.email || selectedItem.contact.email;
+    }
     filesystem.writeFileSync(
       "./data/warehouses.json",
       JSON.stringify(warehousesData)
