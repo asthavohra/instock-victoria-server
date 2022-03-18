@@ -89,19 +89,21 @@ router
     } else {
       res.status(400).send("Item does not exist");
     }
-  })
-  .delete("/:id", (req, res) => {
-    //write your code here
   });
 
 router.delete("/:id", (req, res) => {
-  const id = req.params.id;
-
-  inventory = inventoriesFile.filter(
-    (inventory) => inventoriesFile.id !== inventoriesFile.id
-  );
-
-  res.send(`Inventory with the id ${id} deleted from database.`);
+  let deleted = inventoriesData.find((item) => item.id == req.params.id);
+  const index = inventoriesData.indexOf(deleted);
+  console.log(index);
+  inventoriesData.splice(index, 1);
+  fs.writeFileSync("./data/inventories.json", JSON.stringify(inventoriesData));
+  if (deleted) {
+    res.status(200).json(deleted);
+  } else {
+    res.status(404).json({
+      message: "The inventory item you are trying to delete doesn't exist",
+    });
+  }
 });
 
 module.exports = router;
