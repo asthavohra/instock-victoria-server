@@ -102,6 +102,7 @@ router.post(
   "/",
   [
     check("name").isString(),
+    check("address").isString(),
     check("city").isString(),
     check("country").isString(),
     check("contact.name").isString(),
@@ -119,6 +120,7 @@ router.post(
     const newWareHouseInfo = {
       id: uuidv4(),
       name: request.body.name,
+      address: request.body.address,
       city: request.body.city,
       country: request.body.country,
       contact: {
