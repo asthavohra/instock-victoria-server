@@ -104,6 +104,7 @@ router.post(
     check("name").isString(),
     check("city").isString(),
     check("country").isString(),
+    check("address").isString(),
     check("contact.name").isString(),
     check("contact.position").isString(),
     check("contact.phone").isMobilePhone(),
@@ -121,6 +122,7 @@ router.post(
       name: request.body.name,
       city: request.body.city,
       country: request.body.country,
+      address: request.body.address,
       contact: {
         name: request.body.contact.name,
         position: request.body.contact.position,
